@@ -20,7 +20,7 @@ def parseCommandLine():
 
 args = parseCommandLine()
 
-client = boto3.client('cloudformation',  region_name=args.region)
+client = boto3.client('cloudformation', region_name=args.region)
 response = client.describe_stacks(
     StackName=args.stackName,
     NextToken='string'
@@ -32,7 +32,7 @@ for stack in response["Stacks"]:
         for output in stack["Outputs"]:
             values[output["OutputKey"]] = output["OutputValue"]
 
-print(yaml.dump(values, default_flow_style=False))
+print yaml.dump(values, default_flow_style=False)
 if args.file:
     outfile = open(args.file, 'w')
     yaml.dump(values, outfile, default_flow_style=False)
